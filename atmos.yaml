@@ -7,7 +7,39 @@ components:
     deploy_run_init: true
     init_run_reconfigure: true
     auto_generate_backend_file: false
-  
+    settings:
+      spacelift:
+        terraform_workflow_tool: OPEN_TOFU
+        # enable the stack in Spacelift
+        workspace_enabled: true
+        administrative: true
+
+        # auto deploy this stack
+        autodeploy: true
+
+        # commands to run before init
+        before_init: []
+
+        # Specify which component directory to use
+        component_root: components/terraform/weather
+
+        description: Our Weather Station
+
+        # whether to auto destroy resources if the stack is deleted
+        stack_destructor_enabled: false
+
+        worker_pool_name: null
+
+        # Do not add normal set of child policies to admin stacks
+        policies_enabled: []
+
+        # set explicitly below
+        administrative_trigger_policy_enabled: false
+
+        # policies to enable
+        policies_by_id_enabled:
+          - trigger-administrative-policy
+
 stacks:
   base_path: "stacks"
   included_paths:
