@@ -1,0 +1,20 @@
+name: Workflows for Weather Station
+description: Atmos workflows for managing Weather Station
+
+workflows:
+
+  plan-all:
+    description: |
+      Run 'terraform plan' on all 'station' components in all stacks
+    steps:
+      - command: terraform plan station -s dev
+      - command: terraform plan station -s staging
+      - command: terraform plan station -s prod
+
+  apply-all:
+    description: |
+      Run 'terraform apply' on all 'station' components in all stacks
+    steps:
+      - command: terraform apply station -auto-approve -s dev
+      - command: terraform apply station -auto-approve -s staging
+      - command: terraform apply station -auto-approve -s prod
