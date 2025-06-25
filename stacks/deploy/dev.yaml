@@ -10,5 +10,5 @@ components:
   terraform:
     station:
       vars:
-        location: Twin Falls
+        location: Sacramento
         lang: en
