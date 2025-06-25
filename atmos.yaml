@@ -8,6 +8,24 @@ components:
     init_run_reconfigure: true
     auto_generate_backend_file: false
     settings:
+      depends_on:
+        1:
+          # If the `context` (namespace, tenant, environment, stage) is not provided,
+          # the `component` is from the same Atmos stack as this component
+          component: "component/weather"
+        2:
+          # This component (in any stage) depends on `test/test-component`
+          # from the `dev` stage (in any `environment` and any `tenant`)
+          component: "component/weather"
+          stage: "dev"
+        3:
+          # This component depends on `my-component`
+          # from the `tenant1-ue2-staging` Atmos stack
+          component: "my-component"
+          tenant: "tenant1"
+          environment: "ue2"
+          stage: "staging"
+
       spacelift:
         terraform_workflow_tool: OPEN_TOFU
         # enable the stack in Spacelift
@@ -39,6 +57,8 @@ components:
         # policies to enable
         policies_by_id_enabled:
           - trigger-administrative-policy
+    vars:
+      enabled: true
 
 stacks:
   base_path: "stacks"

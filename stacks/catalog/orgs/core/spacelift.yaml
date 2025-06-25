@@ -1,0 +1,30 @@
+# stacks/orgs/acme/core/spacelift.yaml
+import:
+  - mixins/region/global-region
+  - orgs/acme/core/_defaults
+  - catalog/terraform/spacelift/admin-stack
+
+vars:
+  tenant: core
+  environment: gbl
+  stage: spacelift
+
+components:
+  terraform:
+    admin-stack:
+      metadata:
+        component: spacelift/admin-stack
+        inherits:
+          - admin-stack/default
+      settings:
+        spacelift:
+          labels: # Additional labels for this stack
+            - admin-stack-name:core
+      vars:
+        enabled: true
+        context_filters:
+          tenants: ["core"]
+        labels: # Additional labels added to all children
+          - admin-stack-name:core # will be used to automatically create the `managed-by:stack-name` label
+        child_policy_attachments:
+          - TRIGGER Dependencies
